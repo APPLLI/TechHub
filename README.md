@@ -69,11 +69,6 @@ TechHub是一个精心设计的个人技术展示网站，采用了现代化的�
 
 项目已配置GitHub Pages，推送代码到 `main` 分支自动部署。
 
-## 🔗 外部链接
-
-- [GitHub](https://github.com/APPLLI) - GitHub个人主页
-- [CSDN](https://blog.csdn.net/APPLLI) - CSDN技术博客
-- [知乎](https://www.zhihu.com/people/APPLLI) - 知乎个人主页
 
 ## 🤝 贡献
 
