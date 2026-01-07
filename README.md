@@ -82,7 +82,7 @@ TechHub是一个精心设计的个人技术展示网站，采用了现代化的�
 
 如有问题或建议，欢迎通过以下方式联系：
 - GitHub Issues: https://github.com/APPLLI/TechHub/issues
-- Email: tech@example.com
+- Email: zhanqima@163.com
 
 ---
 
