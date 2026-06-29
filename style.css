@@ -1340,3 +1340,290 @@ body::after {
         gap: 1rem;
     }
 }
+
+/* ============================================
+   增强效果样式
+   ============================================ */
+
+/* ---- 滚动进度条 ---- */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+    z-index: 10000;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--secondary-color);
+    border-radius: 0 2px 2px 0;
+}
+
+/* ---- 粒子画布 ---- */
+#particleCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ---- 自定义光标 ---- */
+.cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color), 0 0 40px var(--primary-color);
+    transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+    mix-blend-mode: difference;
+}
+
+.cursor-ring {
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}
+
+.cursor-dot.cursor-hover {
+    width: 16px;
+    height: 16px;
+    background: var(--secondary-color);
+    box-shadow: 0 0 15px var(--secondary-color), 0 0 30px var(--secondary-color), 0 0 60px var(--secondary-color);
+}
+
+.cursor-ring.cursor-hover {
+    width: 50px;
+    height: 50px;
+    border-color: var(--secondary-color);
+    opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+    .cursor-dot,
+    .cursor-ring {
+        display: none;
+    }
+}
+
+/* ---- 3D 卡片倾斜效果 ---- */
+.project-card.tilt-enabled,
+.tech-card.tilt-enabled,
+.contact-card.tilt-enabled,
+.blog-card.tilt-enabled {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+}
+
+.project-card .card-glare,
+.tech-card .card-glare,
+.contact-card .card-glare,
+.blog-card .card-glare {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.03) 40%,
+        transparent 70%
+    );
+}
+
+.project-card:hover .card-glare,
+.tech-card:hover .card-glare,
+.contact-card:hover .card-glare,
+.blog-card:hover .card-glare {
+    opacity: 1;
+}
+
+/* ---- 鼠标跟随发光 ---- */
+.project-card.card-glow,
+.tech-card.card-glow,
+.contact-card.card-glow,
+.blog-card.card-glow {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card.card-glow::after,
+.tech-card.card-glow::after,
+.contact-card.card-glow::after,
+.blog-card.card-glow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+        circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(0, 217, 255, 0.2) 0%,
+        rgba(123, 97, 255, 0.08) 30%,
+        transparent 60%
+    );
+    border-radius: inherit;
+}
+
+.project-card.card-glow:hover::after,
+.tech-card.card-glow:hover::after,
+.contact-card.card-glow:hover::after,
+.blog-card.card-glow:hover::after {
+    opacity: 1;
+}
+
+/* ---- Glitch 文字效果 ---- */
+@keyframes glitch-1 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-3px, 2px); }
+    40% { transform: translate(3px, -1px); }
+    60% { transform: translate(-2px, 1px); }
+    80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-2 {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(3px, -1px); }
+    40% { transform: translate(-2px, 2px); }
+    60% { transform: translate(2px, -2px); }
+    80% { transform: translate(-3px, 1px); }
+}
+
+@keyframes glitch-skew {
+    0%, 100% { transform: skew(0deg); }
+    25% { transform: skew(2deg); }
+    75% { transform: skew(-1deg); }
+}
+
+.glitch-text {
+    position: relative;
+    display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+.glitch-text::before {
+    color: #ff0080;
+    z-index: -1;
+    animation: glitch-1 0.3s ease-in-out infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+}
+
+.glitch-text::after {
+    color: #00d9ff;
+    z-index: -2;
+    animation: glitch-2 0.3s ease-in-out infinite reverse;
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+}
+
+.glitch-text.glitch-active {
+    animation: glitch-skew 0.4s ease-in-out;
+    text-shadow:
+        -2px 0 #ff0080,
+        2px 0 #00d9ff,
+        0 0 10px var(--primary-color);
+}
+
+/* ---- 打字光标 ---- */
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--primary-color);
+    margin-left: 2px;
+    vertical-align: text-bottom;
+    animation: cursorBlink 0.8s step-end infinite;
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+@keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* ---- 浮动科技图标 ---- */
+@keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.08; }
+    25% { transform: translateY(-30px) rotate(5deg); opacity: 0.12; }
+    50% { transform: translateY(-15px) rotate(-3deg); opacity: 0.06; }
+    75% { transform: translateY(-40px) rotate(2deg); opacity: 0.1; }
+}
+
+.float-icon {
+    position: absolute;
+    font-size: 4rem;
+    color: var(--primary-color);
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatIcon 8s ease-in-out infinite;
+}
+
+.float-icon:nth-child(2n) {
+    animation-duration: 11s;
+    animation-delay: -3s;
+    color: var(--secondary-color);
+}
+
+.float-icon:nth-child(3n) {
+    animation-duration: 13s;
+    animation-delay: -6s;
+    color: var(--accent-color);
+}
+
+/* ---- 卡片悬浮增强 ---- */
+.project-card,
+.tech-card,
+.contact-card,
+.blog-card {
+    will-change: transform;
+}
+
+/* ---- 导航栏活动项发光 ---- */
+.nav-links a.active {
+    text-shadow: 0 0 10px var(--primary-color);
+}
+
+/* ---- Hero 标题脉冲光效 ---- */
+.hero-title .title-line.highlight {
+    animation: titlePulse 3s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+    0%, 100% { filter: brightness(1) drop-shadow(0 0 10px rgba(0, 217, 255, 0.3)); }
+    50% { filter: brightness(1.2) drop-shadow(0 0 25px rgba(123, 97, 255, 0.5)); }
+}
